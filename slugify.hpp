@@ -1,5 +1,4 @@
-#ifndef SLUGIFY_HPP
-#define SLUGIFY_HPP
+#pragma once
 
 #include <string>
 #include <unordered_map>
@@ -7,9 +6,9 @@
 #include <algorithm>
 
 // SLUGIFY
-std::string slugify(std::string input)
+std::string string_to_slug(std::string input)
 {
-	std::unordered_map<std::string, std::string> charMap {
+	static std::unordered_map<std::string, std::string> charmap {
 		// latin
 		{"À", "A"}, {"Á", "A"}, {"Â", "A"}, {"Ã", "A"}, {"Ä", "A"}, {"Å", "A"}, {"Æ", "AE"}, {
 		"Ç", "C"}, {"È", "E"}, {"É", "E"}, {"Ê", "E"}, {"Ë", "E"}, {"Ì", "I"}, {"Í", "I"}, {
@@ -75,13 +74,10 @@ std::string slugify(std::string input)
 		{"<", "less"}, {">", "greater"}
 	};
 
-	// loop every character in charMap
-	for(auto kv : charMap)
+	for(auto kv : charmap)
 	{
-		// check if key is in string
 		if(input.find(kv.first) != std::string::npos)
 		{
-			// replace key with value
 			input.replace(input.find(kv.first), kv.first.length(), kv.second);
 		}
 	}
@@ -100,5 +96,3 @@ std::string slugify(std::string input)
 
 	return input;
 };
-
-#endif
